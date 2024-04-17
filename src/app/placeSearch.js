@@ -15,9 +15,6 @@ export default function PlaceSearch() {
     const place = (await res.json())[0];
 
     setPlaceData(place);
-
-    // console.log(place);
-    // console.log(country);
   };
 
   return (
