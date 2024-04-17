@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import WeatherWidget from "./weatherWidget";
 
 export default function PlaceInfo(props) {
+  if (!props.placeData) return null;
   if (!props.placeData.display_name) {
     return null;
   } else {
@@ -40,7 +41,7 @@ export default function PlaceInfo(props) {
 
     return (
       <div className="flex flex-col items-center">
-        <div className="flex flex-row items-center mb-12">
+        <div className="flex flex-row items-center mb-16">
           <img
             src={
               countryData

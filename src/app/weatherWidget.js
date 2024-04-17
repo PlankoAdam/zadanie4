@@ -11,7 +11,7 @@ export default function WeatherWidget(props) {
 
   return (
     <div>
-      <h1 className="font-bold text-4xl">
+      <h1 className="font-bold text-4xl mb-5">
         {props.weather ? props.weather.location.name : ""}
       </h1>
       <div className="flex flex-row">{days}</div>
