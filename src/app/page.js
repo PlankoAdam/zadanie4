@@ -1,9 +1,9 @@
-import Test from "./test.js";
+import PlaceSearch from "./placeSearch.js";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Test></Test>
+      <PlaceSearch></PlaceSearch>
     </main>
   );
 }
