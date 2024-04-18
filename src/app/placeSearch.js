@@ -18,20 +18,23 @@ export default function PlaceSearch() {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit(getPlace)} className="flex flex-col">
-        <label className="mb-2">Place Name:</label>
-        <input
-          {...register("placeName")}
-          placeholder="New York"
-          className="text-black p-1 px-2 mb-3 rounded-sm"
-        ></input>
-        <input
-          type="submit"
-          className="bg-emerald-500 text-white rounded-sm py-2 cursor-pointer hover:bg-emerald-600 transition-all"
-        ></input>
-      </form>
+    <div className="flex flex-col w-full">
+      <div className="mx-auto">
+        <h1 className="text-start  text-zinc-300 mb-1">Search a location</h1>
+        <form onSubmit={handleSubmit(getPlace)} className="flex flex-row mb-16">
+          <input
+            {...register("placeName")}
+            placeholder="New York"
+            className="text-white p-1 px-2 rounded-md h-10 me-3 bg-transparent border-zinc-300 border-2 placeholder:italic placeholder:text-zinc-500"
+          ></input>
+          <input
+            type="submit"
+            value="Search"
+            className="bg-teal-600 text-white rounded-sm py-2 px-4 cursor-pointer hover:bg-teal-800 transition-all h-10"
+          ></input>
+        </form>
+      </div>
       <PlaceInfo placeData={placeData}></PlaceInfo>
-    </>
+    </div>
   );
 }

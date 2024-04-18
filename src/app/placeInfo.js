@@ -41,26 +41,22 @@ export default function PlaceInfo(props) {
 
     return (
       <div className="flex flex-col items-center">
-        <div className="flex flex-row items-center mb-16">
+        <div className="flex flex-row justify-center mb-16 w-full">
           <img
             src={
               countryData
                 ? `https://countryflagsapi.netlify.app/flag/${countryData.cca2}.svg`
                 : ""
             }
-            className="w-48 flex-1 me-6"
+            className="w-48 max-w-48 me-8"
           ></img>
-          <div className="grid grid-cols-[6rem_1fr] gap-2 w-full flex-1 text-xl min-w-fit">
-            <p className="text-end font-light">Country:</p>
-            <p className="font-bold">
-              {countryData ? countryData.name.common : ""}
-            </p>
-            <p className="text-end font-light">Capital:</p>
-            <p className="font-bold">
-              {countryData ? countryData.capital[0] : ""}
-            </p>
-            <p className="text-end font-light">Currency:</p>
-            <p className="font-bold">{currencies}</p>
+          <div className="grid grid-cols-[6rem_1fr] gap-2 w-full my-auto text-xl min-w-fit max-w-fit">
+            <p className="text-end font-light text-zinc-300">Country:</p>
+            <p>{countryData ? countryData.name.common : ""}</p>
+            <p className="text-end font-light text-zinc-300">Capital:</p>
+            <p>{countryData ? countryData.capital[0] : ""}</p>
+            <p className="text-end font-light text-zinc-300">Currency:</p>
+            <p>{currencies}</p>
           </div>
         </div>
         <WeatherWidget weather={weather}></WeatherWidget>
