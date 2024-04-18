@@ -6,6 +6,7 @@ import { useState } from "react";
 export default function PlaceSearch() {
   const { register, handleSubmit } = useForm();
   const [placeData, setPlaceData] = useState({});
+  const [date, setDate] = useState("");
 
   const getPlace = async (formData) => {
     const query = formData.placeName;
@@ -15,17 +16,24 @@ export default function PlaceSearch() {
     const place = (await res.json())[0];
 
     setPlaceData(place);
+    setDate(formData.date);
   };
 
   return (
     <div className="flex flex-col w-full">
       <div className="mx-auto">
-        <h1 className="text-start  text-zinc-300 mb-1">Search a location</h1>
-        <form onSubmit={handleSubmit(getPlace)} className="flex flex-row mb-16">
+        <form onSubmit={handleSubmit(getPlace)} className="flex flex-col mb-16">
+          <h1 className="text-start  text-zinc-300 ">Search a location</h1>
           <input
-            {...register("placeName")}
+            {...register("placeName", { required: true })}
             placeholder="New York"
-            className="text-white p-1 px-2 rounded-md h-10 me-3 bg-transparent border-zinc-300 border-2 placeholder:italic placeholder:text-zinc-500"
+            className="text-white px-2 mb-2 rounded-md h-10 bg-transparent border-zinc-300 border-2 placeholder:italic placeholder:text-zinc-500"
+          ></input>
+          <h1 className="text-start  text-zinc-300">Pick a date</h1>
+          <input
+            {...register("date", { required: true })}
+            type="date"
+            className="text-white  px-2 mb-6 rounded-md h-10 bg-transparent border-zinc-300 border-2 placeholder:italic placeholder:text-zinc-500"
           ></input>
           <input
             type="submit"
@@ -34,7 +42,7 @@ export default function PlaceSearch() {
           ></input>
         </form>
       </div>
-      <PlaceInfo placeData={placeData}></PlaceInfo>
+      <PlaceInfo placeData={placeData} date={date}></PlaceInfo>
     </div>
   );
 }
