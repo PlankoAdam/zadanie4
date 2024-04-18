@@ -31,7 +31,10 @@ export default function PlaceSearch() {
           ></input>
           <h1 className="text-start  text-zinc-300">Pick a date</h1>
           <input
-            {...register("date", { required: true })}
+            {...register("date", {
+              required: true,
+              validate: (d) => Number(d.substring(0, 4)) >= 1970,
+            })}
             type="date"
             className="text-white  px-2 mb-6 rounded-md h-10 bg-transparent border-zinc-300 border-2 placeholder:italic placeholder:text-zinc-500"
           ></input>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import WeatherWidget from "./weatherWidget";
+import CurrencyWidget from "./currencyWidget";
 
 export default function PlaceInfo(props) {
   if (!props.placeData) return null;
@@ -7,7 +8,7 @@ export default function PlaceInfo(props) {
   if (!props.date) return null;
   const [countryData, setCountryData] = useState();
   const [weather, setWeather] = useState({});
-  const [currencies, setCurrencies] = useState("");
+  const [currency, setCurrency] = useState({});
 
   useEffect(() => {
     const parts = props.placeData.display_name.split(",");
@@ -22,7 +23,12 @@ export default function PlaceInfo(props) {
     const country = (await res.json())[0];
     setCountryData(country);
     for (const key in country.currencies) {
-      setCurrencies(country.currencies[key].name);
+      setCurrency({
+        name: country.currencies[key].name,
+        short: key,
+        rate: await getExchangeRates(key),
+      });
+      break;
     }
     getWeatherData(props.placeData.lat, props.placeData.lon);
   };
@@ -38,9 +44,16 @@ export default function PlaceInfo(props) {
     console.log(weather);
   };
 
+  const getExchangeRates = async (currency) => {
+    const res = await fetch("https://api.exchangerate-api.com/v4/latest/euro");
+    const data = await res.json();
+
+    return data.rates[currency];
+  };
+
   return (
     <div className="flex flex-col items-center">
-      <div className="flex flex-row justify-center mb-16 w-full">
+      <div className="flex flex-row justify-center mb-8 w-full">
         <img
           src={
             countryData
@@ -55,9 +68,10 @@ export default function PlaceInfo(props) {
           <p className="text-end font-light text-zinc-300">Capital:</p>
           <p>{countryData ? countryData.capital[0] : ""}</p>
           <p className="text-end font-light text-zinc-300">Currency:</p>
-          <p>{currencies}</p>
+          <p>{currency.name}</p>
         </div>
       </div>
+      <CurrencyWidget currency={currency}></CurrencyWidget>
       <WeatherWidget weather={weather} date={props.date}></WeatherWidget>
     </div>
   );

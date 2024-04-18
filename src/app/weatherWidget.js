@@ -35,7 +35,7 @@ export default function WeatherWidget(props) {
     const sum = temps.reduce((a, b) => a + b, 0);
     const avg = sum / temps.length || 0;
 
-    return avg;
+    return Math.round(avg * 10) / 10;
   };
 
   return (
@@ -43,8 +43,16 @@ export default function WeatherWidget(props) {
       <h1 className="font-bold text-4xl mb-5">
         {props.weather ? props.weather.location.name : ""}
       </h1>
-      <h1>{avgTemp}</h1>
-      <div className="flex flex-row border-s border-zinc-500">{days}</div>
+      <div className="flex flex-row border-s border-zinc-500 mb-5">{days}</div>
+      <div className="flex flex-row text-xl justify-center">
+        <p className="text-zinc-300 me-2 font-light">
+          Average temperature in the month:
+        </p>
+        <div className="flex flex-row font-bold min-w-fit">
+          <p>{avgTemp}</p>
+          <p>°C</p>
+        </div>
+      </div>
     </div>
   );
 }
